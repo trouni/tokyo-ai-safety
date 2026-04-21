@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>AI Safety: How to Build a Human-Centered Future</title>
+  <meta name="description" content="AI Safety event — register for future events or ask the speaker a question." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧠</text></svg>" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+        "Hiragino Sans", "Yu Gothic UI", "Meiryo", Arial, sans-serif;
+      background: linear-gradient(160deg, #0f172a 0%, #1e293b 60%, #0f172a 100%);
+      color: #f1f5f9;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem 1.25rem;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      width: 100%;
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+    .lang-toggle {
+      position: fixed;
+      top: 1rem;
+      right: 1rem;
+      display: flex;
+      gap: 0.25rem;
+      background: rgba(15, 23, 42, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+      padding: 0.25rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    .lang-toggle button {
+      width: auto;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: transparent;
+      color: #94a3b8;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.15s, color 0.15s;
+    }
+    .lang-toggle button[aria-pressed="true"] {
+      background: #3b82f6;
+      color: white;
+    }
+    header { text-align: center; }
+    .eyebrow {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #60a5fa;
+      margin: 0 0 0.75rem;
+    }
+    h1 {
+      font-size: clamp(1.5rem, 5vw, 1.875rem);
+      line-height: 1.3;
+      font-weight: 700;
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 16px;
+      padding: 1.5rem;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+    .card h2 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 0 0 0.35rem;
+    }
+    .card p {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin: 0 0 1rem;
+      line-height: 1.5;
+    }
+    form { display: flex; flex-direction: column; gap: 0.6rem; }
+    input[type="email"] {
+      width: 100%;
+      padding: 0.95rem 1rem;
+      font-size: 1rem;
+      background: rgba(15, 23, 42, 0.6);
+      color: #f1f5f9;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input[type="email"]:focus {
+      border-color: #60a5fa;
+      box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+    }
+    input[type="email"]::placeholder { color: #64748b; }
+    button, .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      width: 100%;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      text-align: center;
+      transition: transform 0.08s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    button:active, .btn:active { transform: scale(0.98); }
+    .btn-primary { background: #3b82f6; color: white; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn-slido {
+      background: #fef3c7;
+      color: #1f2937;
+      box-shadow: 0 4px 14px rgba(251, 191, 36, 0.25);
+    }
+    .btn-slido:hover { background: #fde68a; }
+    .status {
+      font-size: 0.85rem;
+      min-height: 1.2rem;
+      margin: 0;
+      text-align: center;
+    }
+    .status.success { color: #4ade80; }
+    .status.error { color: #f87171; }
+    fieldset { border: none; padding: 0; margin: 0; }
+    legend {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #cbd5e1;
+      margin-bottom: 0.5rem;
+      padding: 0;
+    }
+    .checks { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .check {
+      flex: 1;
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.75rem 0.9rem;
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: none;
+      transition: border-color 0.15s, background-color 0.15s;
+    }
+    .check:has(input:checked) {
+      border-color: #60a5fa;
+      background: rgba(59, 130, 246, 0.15);
+    }
+    .check input {
+      width: 1.15rem;
+      height: 1.15rem;
+      accent-color: #3b82f6;
+      margin: 0;
+      cursor: pointer;
+    }
+    .check span { font-size: 0.95rem; }
+    .honeypot {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+    }
+    footer {
+      text-align: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 1rem;
+    }
+    footer a { color: #94a3b8; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    :lang(ja) h1 { line-height: 1.4; }
+  </style>
+</head>
+<body>
+  <div class="lang-toggle" role="group" aria-label="Language">
+    <button type="button" data-lang="en" aria-pressed="true">EN</button>
+    <button type="button" data-lang="ja" aria-pressed="false">日本語</button>
+  </div>
+
+  <main>
+    <header>
+      <p class="eyebrow">Le Wagon Tokyo</p>
+      <h1 data-i18n="title">AI Safety:<br />How to Build a Human-Centered Future</h1>
+    </header>
+
+    <section class="card">
+      <h2 data-i18n="subscribeTitle">Stay in the loop</h2>
+      <p data-i18n="subscribeBody">Get notified about our next AI &amp; tech events.</p>
+      <form id="subscribe">
+        <input type="hidden" name="access_key" value="a20d4457-045e-4feb-86bc-ff809519f232" />
+        <input type="hidden" name="subject" value="New AI Safety event signup" />
+        <input type="hidden" name="from_name" value="AI Safety Landing" />
+        <input type="checkbox" name="botcheck" class="honeypot" tabindex="-1" autocomplete="off" />
+
+        <input
+          type="email"
+          name="email"
+          placeholder="you@example.com"
+          required
+          autocomplete="email"
+          inputmode="email"
+        />
+
+        <fieldset>
+          <legend data-i18n="languagesLegend">Languages you're interested in</legend>
+          <div class="checks">
+            <label class="check">
+              <input type="checkbox" name="languages" value="English" checked />
+              <span>English</span>
+            </label>
+            <label class="check">
+              <input type="checkbox" name="languages" value="Japanese" checked />
+              <span>日本語</span>
+            </label>
+          </div>
+        </fieldset>
+
+        <button type="submit" class="btn-primary" data-i18n="subscribeBtn">Subscribe</button>
+      </form>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="card">
+      <h2 data-i18n="slidoTitle">Question for the speaker?</h2>
+      <p data-i18n="slidoBody">Post it anonymously on Slido — we'll cover it during Q&amp;A.</p>
+      <a class="btn btn-slido" href="https://app.sli.do/event/rUyt56ya6hcTrVCXzftk8d" target="_blank" rel="noopener" data-i18n="slidoBtn">
+        Ask on Slido →
+      </a>
+    </section>
+
+    <footer>
+      <a href="https://luma.com/hu7l3j44" target="_blank" rel="noopener" data-i18n="footer">View event details</a>
+    </footer>
+  </main>
+
+  <script>
+    const translations = {
+      en: {
+        title: 'AI Safety:<br />How to Build a Human-Centered Future',
+        subscribeTitle: 'Stay in the loop',
+        subscribeBody: 'Get notified about our next AI &amp; tech events.',
+        languagesLegend: "Languages you're interested in",
+        subscribeBtn: 'Subscribe',
+        slidoTitle: 'Question for the speaker?',
+        slidoBody: "Post it anonymously on Slido — we'll cover it during Q&amp;A.",
+        slidoBtn: 'Ask on Slido →',
+        footer: 'View event details',
+        sending: 'Sending…',
+        success: "✓ Thanks — you're on the list.",
+        errorLang: 'Please select at least one language.',
+        errorGeneric: 'Something went wrong. Try again.',
+      },
+      ja: {
+        title: 'AIセーフティ：<br />人間中心の未来を築くには',
+        subscribeTitle: '次回イベントのご案内',
+        subscribeBody: '今後のAI・テックイベントの情報をお届けします。',
+        languagesLegend: 'ご希望の言語',
+        subscribeBtn: '登録する',
+        slidoTitle: 'スピーカーへの質問',
+        slidoBody: 'Slidoに匿名で投稿できます。Q&Aで取り上げます。',
+        slidoBtn: 'Slidoで質問する →',
+        footer: 'イベント詳細を見る',
+        sending: '送信中…',
+        success: '✓ ご登録ありがとうございます。',
+        errorLang: '言語を1つ以上選択してください。',
+        errorGeneric: 'エラーが発生しました。もう一度お試しください。',
+      },
+    };
+
+    const STORAGE_KEY = 'lang';
+    const defaultLang = (() => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved === 'en' || saved === 'ja') return saved;
+      const nav = (navigator.language || 'en').toLowerCase();
+      return nav.startsWith('ja') ? 'ja' : 'en';
+    })();
+
+    let currentLang = defaultLang;
+
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+      const dict = translations[lang];
+      document.querySelectorAll('[data-i18n]').forEach((el) => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
+      });
+      document.querySelectorAll('.lang-toggle button').forEach((btn) => {
+        btn.setAttribute('aria-pressed', btn.dataset.lang === lang ? 'true' : 'false');
+      });
+      localStorage.setItem(STORAGE_KEY, lang);
+    }
+
+    document.querySelectorAll('.lang-toggle button').forEach((btn) => {
+      btn.addEventListener('click', () => applyLang(btn.dataset.lang));
+    });
+
+    applyLang(defaultLang);
+
+    const form = document.getElementById('subscribe');
+    const status = document.getElementById('status');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const t = translations[currentLang];
+
+      const langs = Array.from(
+        form.querySelectorAll('input[name="languages"]:checked')
+      ).map((el) => el.value);
+
+      if (langs.length === 0) {
+        status.className = 'status error';
+        status.textContent = t.errorLang;
+        return;
+      }
+
+      const payload = {
+        access_key: form.access_key.value,
+        subject: form.subject.value,
+        from_name: form.from_name.value,
+        botcheck: form.botcheck.checked,
+        email: form.email.value,
+        languages: langs.join(', '),
+        ui_language: currentLang,
+      };
+
+      status.className = 'status';
+      status.textContent = t.sending;
+      submitBtn.disabled = true;
+
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Accept: 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+        const data = await res.json();
+        if (res.ok && data.success) {
+          form.reset();
+          form.querySelectorAll('input[name="languages"]').forEach((el) => {
+            el.checked = true;
+          });
+          status.className = 'status success';
+          status.textContent = t.success;
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      } catch (err) {
+        status.className = 'status error';
+        status.textContent = t.errorGeneric;
+      } finally {
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
